@@ -1,7 +1,7 @@
 import React from "react";
 //youverify baseurl
 const youverifybase = "https://api.sandbox.youverify.co"
-const onlinebase = "https://bulenoxapi.eazistey.co.ke/"
+const onlinebase = "https://api.bulenox-coupons.app/"
 
 const localbase = "http://192.168.1.7:8000/"
 
