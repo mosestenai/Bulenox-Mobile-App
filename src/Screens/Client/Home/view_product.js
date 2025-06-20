@@ -112,7 +112,7 @@ const ProductScreen = () => {
     const viewsCount = parseInt(product_data?.views?.reduce((a, b) => a + parseInt(b.count), 0)) || 0;
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingTop: insets.top }}>
+        <SafeAreaView style={{ flex: 1, paddingTop: insets.top, height: "100%" }}>
             <StatusBar backgroundColor={white} barStyle="dark-content" />
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 5 }}>
@@ -138,7 +138,7 @@ const ProductScreen = () => {
                         )
                     })}
                 </ScrollView>
-                <ScrollView contentContainerStyle={{ paddingBottom: 100, marginHorizontal: "5%" }} refreshControl={
+                <ScrollView contentContainerStyle={{ paddingBottom: 500, marginHorizontal: "5%" }} refreshControl={
                     <RefreshControl
                         refreshing={loading}
                         onRefresh={() => fetchproduct()}
