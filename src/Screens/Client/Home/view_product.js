@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    Image,
-    ToastAndroid,
-    Linking
-} from "react-native"
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Image, ToastAndroid, Linking } from "react-native"
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { deviceHeight, deviceWidth } from "../../../Utils/dimensions";
 import { black, primarycolor, red, secondarycolor, semiprimarycolor, semisecondarycolor, white } from "../../../Utils/colors";
@@ -64,6 +53,21 @@ const ProductScreen = () => {
             console.log(error)
         });
     }
+
+    useEffect(() => {
+        let autoplayInterval;
+
+        if (product_data?.images?.length > 1) {
+            let index = product_data.images.findIndex(img => img.id === current_image.id);
+            autoplayInterval = setInterval(() => {
+                index = (index + 1) % product_data.images.length;
+                setcurrent_image(product_data.images[index]);
+            }, 3000);
+        }
+
+        return () => clearInterval(autoplayInterval);
+    }, [product_data, current_image]);
+
 
     //handle view product 
     const viewproduct = (product_id) => {
