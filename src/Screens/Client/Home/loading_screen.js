@@ -18,7 +18,7 @@ const LoadingScreen = () => {
         <SafeAreaView style={{ paddingTop: insets.top, flex: 1, height: "100%", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <View style={{ position: "absolute" }}><Updateexpotoken /></View>
             <Image style={styles.logo} source={require("./../../../../assets/icon.png")} />
-            <Text style={styles.app_name}>Bulenox codes</Text>
+            <Text style={styles.app_name}>Bulenox Codes</Text>
             <Text style={styles.discover_text} >Discover amazing deals</Text>
             <View>
                 <LottieView

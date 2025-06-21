@@ -12,7 +12,7 @@ import { getTimeLeft, imageurl } from "../../../Utils/functions";
 import { useNavigation } from "@react-navigation/native";
 import * as Clipboard from 'expo-clipboard';
 import axios from "axios";
-import { Fetchproductsurl } from "../../../Utils/urls";
+import { Copyproducturl, Fetchproductsurl } from "../../../Utils/urls";
 import Alertpopup from "../../../Components/alert";
 import Nodatacomponent from "../../../Components/nodata";
 import Getuserdetails from "../../../Utils/getuserdetails";
@@ -77,9 +77,26 @@ const Clienthome = () => {
         navigation.navigate("productscreen", { item_url: product.item_url, expo_token: user?.expo_token })
     }
 
-    const handleCopyCode = async (product_code) => {
-        await Clipboard.setStringAsync(product_code);
-        ToastAndroid.show("Code copied to clipboard", ToastAndroid.SHORT);
+    const handleCopyCode = async (product) => {
+        copyproduct(product)
+        await Clipboard.setStringAsync(product?.product_code);
+        // ToastAndroid.show("Code copied to clipboard", ToastAndroid.SHORT);
+    }
+
+
+    //copy product
+    const copyproduct = (product) => {
+        axios.post(Copyproducturl, {
+            product_id: product.id,
+            expo_token: user?.expo_token
+        }).then((response) => {
+            if (!response.data.error) {
+                fetchproducts()
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
+
     }
 
 
@@ -143,8 +160,8 @@ const Clienthome = () => {
                     const expiry = getTimeLeft(product.expiry_date);
                     const first_image = product.images[0];
 
-                      const copyCount = parseInt(product?.copies?.reduce((a, b) => a + parseInt(b.count), 0)) || 0;
-    const viewsCount = parseInt(product?.views?.reduce((a, b) => a + parseInt(b.count), 0)) || 0;
+                    const copyCount = parseInt(product?.copies?.reduce((a, b) => a + parseInt(b.count), 0)) || 0;
+                    const viewsCount = parseInt(product?.views?.reduce((a, b) => a + parseInt(b.count), 0)) || 0;
 
 
 
@@ -176,7 +193,7 @@ const Clienthome = () => {
                                         <View style={styles.code_box}>
                                             <Text style={{ color: primarycolor }}>{product.code}</Text>
                                         </View>
-                                        <TouchableOpacity disabled={expiry === "Expired"} onPress={() => expiry === "Expired" ? {} : handleCopyCode(product?.code)} style={appstyles.copy_button}>
+                                        <TouchableOpacity disabled={expiry === "Expired"} onPress={() => expiry === "Expired" ? {} : handleCopyCode(product)} style={appstyles.copy_button}>
                                             <Feather size={18} name="copy" color={white} />
                                         </TouchableOpacity>
                                     </View>

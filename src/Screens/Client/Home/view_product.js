@@ -121,24 +121,7 @@ const ProductScreen = () => {
                 <Text style={styles.headerTitle}>Coupon Details</Text>
             </View>
             <View style={styles.mainCard}>
-                <View style={{ height: 200 }}>
-                    <Image source={{ uri: imageurl(current_image?.image_name) }} style={styles.mainImage} />
-                </View>
-                <ScrollView horizontal style={styles.thumbnailScroll}>
-                    {product_data?.images?.map((image, key) => {
-                        const is_active = current_image.id === image.id
-                        return (
-                            <TouchableOpacity
-                                onPress={() => setcurrent_image(image)}
-                                style={[styles.mini_image, { borderColor: is_active ? secondarycolor : white }]}
-                                key={key}
-                            >
-                                <Image source={{ uri: imageurl(image?.image_name) }} style={styles.thumbnailImage} />
-                            </TouchableOpacity>
-                        )
-                    })}
-                </ScrollView>
-                <ScrollView contentContainerStyle={{ paddingBottom: 700, marginHorizontal: "5%" }} refreshControl={
+                <ScrollView contentContainerStyle={{ paddingBottom: 400, marginHorizontal: "5%" }} refreshControl={
                     <RefreshControl
                         refreshing={loading}
                         onRefresh={() => fetchproduct()}
@@ -146,6 +129,24 @@ const ProductScreen = () => {
                         tintColor={secondarycolor}
                     />
                 }>
+                    <View style={{ height: 200 }}>
+                        <Image source={{ uri: imageurl(current_image?.image_name) }} style={styles.mainImage} />
+                    </View>
+                    <ScrollView horizontal style={styles.thumbnailScroll}>
+                        {product_data?.images?.map((image, key) => {
+                            const is_active = current_image.id === image.id
+                            return (
+                                <TouchableOpacity
+                                    onPress={() => setcurrent_image(image)}
+                                    style={[styles.mini_image, { borderColor: is_active ? secondarycolor : white }]}
+                                    key={key}
+                                >
+                                    <Image source={{ uri: imageurl(image?.image_name) }} style={styles.thumbnailImage} />
+                                </TouchableOpacity>
+                            )
+                        })}
+                    </ScrollView>
+
 
                     <View style={styles.rowBetween}>
                         <View style={styles.code_box}>
@@ -158,6 +159,16 @@ const ProductScreen = () => {
                     </View>
                     <Text style={styles.title}>{product_data?.title}</Text>
                     <Text style={styles.description}>{product_data?.description}</Text>
+                    <View style={styles.statsRow}>
+                        <View style={styles.statBox(semiprimarycolor)}>
+                            <Text style={styles.statCount(primarycolor)}>{copyCount}</Text>
+                            <Text style={styles.statLabel(primarycolor)}>Times Copied</Text>
+                        </View>
+                        <View style={styles.statBox(semisecondarycolor)}>
+                            <Text style={styles.statCount(secondarycolor)}>{viewsCount}</Text>
+                            <Text style={styles.statLabel(secondarycolor)}>Times Clicked</Text>
+                        </View>
+                    </View>
                 </ScrollView>
             </View>
             <View style={styles.floating_bottom_section}>
@@ -177,16 +188,6 @@ const ProductScreen = () => {
                     <FontAwesome size={18} name="external-link" color={white} />
                     <Text style={styles.storeButtonText}>Visit Store</Text>
                 </TouchableOpacity>
-                <View style={styles.statsRow}>
-                    <View style={styles.statBox(semiprimarycolor)}>
-                        <Text style={styles.statCount(primarycolor)}>{copyCount}</Text>
-                        <Text style={styles.statLabel(primarycolor)}>Times Copied</Text>
-                    </View>
-                    <View style={styles.statBox(semisecondarycolor)}>
-                        <Text style={styles.statCount(secondarycolor)}>{viewsCount}</Text>
-                        <Text style={styles.statLabel(secondarycolor)}>Times Clicked</Text>
-                    </View>
-                </View>
             </View>
         </SafeAreaView>
     )
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 0,
         width: "100%",
-        paddingHorizontal:"5%",
+        paddingHorizontal: "5%",
         zIndex: 200,
         backgroundColor: white
     },
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
     thumbnailScroll: {
         marginHorizontal: 10,
         marginTop: 10,
-        paddingBottom:50
+        paddingBottom: 50
     },
     mini_image: {
         height: 80,
