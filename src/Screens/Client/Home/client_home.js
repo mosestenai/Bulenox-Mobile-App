@@ -103,7 +103,7 @@ const Clienthome = () => {
     return (
         <SafeAreaView style={{ flex: 1, paddingTop: insets.top }}>
             {/* {loading && <Loadingspinner />} */}
-            <StatusBar backgroundColor={Platform.OS === "ios" ? white : primarycolor} barStyle="light-content" />
+            <StatusBar backgroundColor={primarycolor} barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
             {/* Top Notification Banner */}
             <View style={styles.ad_banner}>
                 <View style={styles.banner_content}>
