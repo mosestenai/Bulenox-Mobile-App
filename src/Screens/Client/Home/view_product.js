@@ -112,7 +112,7 @@ const ProductScreen = () => {
     const viewsCount = parseInt(product_data?.views?.reduce((a, b) => a + parseInt(b.count), 0)) || 0;
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingTop: insets.top, height: "100%" }}>
+        <SafeAreaView style={{ paddingTop: insets.top, height: "100%" }}>
             <StatusBar backgroundColor={white} barStyle="dark-content" />
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 5 }}>
@@ -138,7 +138,7 @@ const ProductScreen = () => {
                         )
                     })}
                 </ScrollView>
-                <ScrollView contentContainerStyle={{ paddingBottom: 500, marginHorizontal: "5%" }} refreshControl={
+                <ScrollView contentContainerStyle={{ paddingBottom: 700, marginHorizontal: "5%" }} refreshControl={
                     <RefreshControl
                         refreshing={loading}
                         onRefresh={() => fetchproduct()}
@@ -158,40 +158,49 @@ const ProductScreen = () => {
                     </View>
                     <Text style={styles.title}>{product_data?.title}</Text>
                     <Text style={styles.description}>{product_data?.description}</Text>
-                    <View style={styles.codeContainer}>
-                        <Text style={styles.couponLabel}>Coupon Code</Text>
-                        <View style={styles.rowBetween}>
-                            <View style={styles.dashedCodeBox}>
-                                <Text style={styles.couponCode}>{product_data?.code}</Text>
-                            </View>
-                            <TouchableOpacity onPress={handleCopyCode} style={styles.copyButton}>
-                                <Feather size={18} name="copy" color={white} />
-                                <Text style={styles.copyText}>Copy</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <TouchableOpacity onPress={() => Linking.openURL(product_data?.link)} style={styles.storeButton}>
-                        <FontAwesome size={18} name="external-link" color={white} />
-                        <Text style={styles.storeButtonText}>Visit Store</Text>
-                    </TouchableOpacity>
-                    <View style={styles.statsRow}>
-                        <View style={styles.statBox(semiprimarycolor)}>
-                            <Text style={styles.statCount(primarycolor)}>{copyCount}</Text>
-                            <Text style={styles.statLabel(primarycolor)}>Times Copied</Text>
-                        </View>
-                        <View style={styles.statBox(semisecondarycolor)}>
-                            <Text style={styles.statCount(secondarycolor)}>{viewsCount}</Text>
-                            <Text style={styles.statLabel(secondarycolor)}>Times Clicked</Text>
-                        </View>
-                    </View>
-
                 </ScrollView>
+            </View>
+            <View style={styles.floating_bottom_section}>
+                <View style={styles.codeContainer}>
+                    <Text style={styles.couponLabel}>Coupon Code</Text>
+                    <View style={styles.rowBetween}>
+                        <View style={styles.dashedCodeBox}>
+                            <Text style={styles.couponCode}>{product_data?.code}</Text>
+                        </View>
+                        <TouchableOpacity onPress={handleCopyCode} style={styles.copyButton}>
+                            <Feather size={18} name="copy" color={white} />
+                            <Text style={styles.copyText}>Copy</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={() => Linking.openURL(product_data?.link)} style={styles.storeButton}>
+                    <FontAwesome size={18} name="external-link" color={white} />
+                    <Text style={styles.storeButtonText}>Visit Store</Text>
+                </TouchableOpacity>
+                <View style={styles.statsRow}>
+                    <View style={styles.statBox(semiprimarycolor)}>
+                        <Text style={styles.statCount(primarycolor)}>{copyCount}</Text>
+                        <Text style={styles.statLabel(primarycolor)}>Times Copied</Text>
+                    </View>
+                    <View style={styles.statBox(semisecondarycolor)}>
+                        <Text style={styles.statCount(secondarycolor)}>{viewsCount}</Text>
+                        <Text style={styles.statLabel(secondarycolor)}>Times Clicked</Text>
+                    </View>
+                </View>
             </View>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
+    floating_bottom_section: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        paddingHorizontal:"5%",
+        zIndex: 200,
+        backgroundColor: white
+    },
     headerContainer: {
         padding: 5,
         backgroundColor: white,
@@ -217,7 +226,8 @@ const styles = StyleSheet.create({
     },
     thumbnailScroll: {
         marginHorizontal: 10,
-        marginTop: 10
+        marginTop: 10,
+        paddingBottom:50
     },
     mini_image: {
         height: 80,
