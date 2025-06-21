@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Image, ToastAndroid, TextInput, RefreshControl, Linking } from "react-native"
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Image, ToastAndroid, TextInput, RefreshControl, Linking, Platform } from "react-native"
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { deviceHeight, deviceWidth } from "../../../Utils/dimensions";
 import { black, green, primarycolor, red, secondarycolor, semiprimarycolor, white } from "../../../Utils/colors";
@@ -103,19 +103,18 @@ const Clienthome = () => {
     return (
         <SafeAreaView style={{ flex: 1, paddingTop: insets.top }}>
             {/* {loading && <Loadingspinner />} */}
-            <StatusBar backgroundColor={primarycolor} barStyle="light-content" />
-
+            <StatusBar backgroundColor={Platform.OS === "ios" ? white : primarycolor} barStyle="light-content" />
             {/* Top Notification Banner */}
             <View style={styles.ad_banner}>
                 <View style={styles.banner_content}>
                     <Feather size={25} name="bell" color={secondarycolor} />
                     <View style={styles.banner_text_container}>
                         <Text style={styles.banner_title}>New Discount Code!</Text>
-                        <Text style={styles.banner_subtitle} numberOfLines={1}>{latestProduct?.title}</Text>
+                        <Text style={styles.banner_subtitle} numberOfLines={1}>{latestProduct?.title?.substring(0, 40)}</Text>
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => viewproduct(latestProduct)} style={styles.banner_close_button}>
-                    <FontAwesome size={15} name="external-link" color={white} />
+                    <FontAwesome size={15} name="external-link" color={Platform.OS === "ios" ? primarycolor : white} />
                 </TouchableOpacity>
             </View>
 
@@ -224,7 +223,7 @@ const styles = StyleSheet.create({
     ad_banner: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: primarycolor,
+        backgroundColor: Platform.OS === "ios" ? 'white' : primarycolor,
         justifyContent: "space-between",
         padding: 10,
     },
@@ -240,12 +239,12 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     banner_title: {
-        color: white,
+        color: Platform?.OS === "ios" ? primarycolor : white,
         fontSize: 15,
         fontFamily: boldfont,
     },
     banner_subtitle: {
-        color: white,
+        color: Platform?.OS === "ios" ? primarycolor : white,
         fontSize: 13,
         fontFamily: lightfont,
     },
