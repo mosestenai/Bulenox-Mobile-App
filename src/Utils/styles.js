@@ -64,7 +64,7 @@ export const appstyles = StyleSheet.create({
         marginTop: 30
     },
     screenheaderview: {
-        paddingTop: 10,
+        paddingTop: 30,
         backgroundColor: white,
         paddingHorizontal: "15%",
         alignItems: "center",
