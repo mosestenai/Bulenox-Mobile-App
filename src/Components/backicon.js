@@ -5,11 +5,13 @@ import { black } from "../Utils/colors"
 import { Makeid } from "../Utils/functions"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backbuttonheight, backbuttonpadding } from "../Utils/defaults"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 
 
 const Backicon = ({ marginTop, color, successmessage, route, screen, position, from }) => {
     const is_ios = Platform.OS === 'ios'
+    const insets = useSafeAreaInsets();
 
     const navigation = useNavigation()
 
@@ -47,7 +49,7 @@ const Backicon = ({ marginTop, color, successmessage, route, screen, position, f
             paddingBottom: 20,
             zIndex: 10,
             position: position ? position : "absolute",
-            marginTop: is_ios ? 40 : marginTop
+            marginTop: is_ios ? 40 : marginTop ? marginTop : insets.top
         }} onPress={() => back()}>
             <Image source={require("./../../assets/images/common/back.jpg")} style={{ height: backbuttonheight, width: backbuttonheight, borderRadius: backbuttonheight }} />
             {/* <FontAwesome name="angle-left" color={color ? color : black} size={25} /> */}
